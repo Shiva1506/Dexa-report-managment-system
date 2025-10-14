@@ -15,7 +15,7 @@ import time
 import tempfile
 import os
 from pathlib import Path
-import re 
+import re
 
 # =============================================================================
 # WEAZYPRINT PDF GENERATOR FOR EXACT HTML REPLICATION
@@ -2837,7 +2837,7 @@ def save_report_version(report_id, report_data, edited_by, edit_reason):
                 serializable_data[key] = value
         
         # Save version with explicit transaction management
-  
+        conn.start_transaction()
         cursor.execute("""
             INSERT INTO report_versions (report_id, version_number, report_data, edited_by, edit_reason)
             VALUES (%s, %s, %s, %s, %s)
@@ -2848,16 +2848,23 @@ def save_report_version(report_id, report_data, edited_by, edit_reason):
         return True
         
     except mysql.connector.Error as e:
-        conn.rollback()
-        st.error(f"❌ MySQL Error saving version: {e}")
-        return False
-    except json.JSONEncoder as e:
-        conn.rollback()
-        st.error(f"❌ JSON serialization error: {e}")
-        return False
+        if e.errno == 1205:  # Lock wait timeout
+            st.warning("⚠️ Database is busy. Please try again in a moment.")
+            conn.rollback()
+            # Retry once
+            try:
+                time.sleep(2)
+                conn.commit()  # Try to clear any locks
+                return save_report_version(report_id, report_data, edited_by, edit_reason)
+            except:
+                return False
+        else:
+           
+            conn.rollback()
+            return False
     except Exception as e:
+        
         conn.rollback()
-        st.error(f"❌ General error saving version: {e}")
         return False
     finally:
         cursor.close()
@@ -2939,6 +2946,8 @@ def get_supabase_files_by_report(report_id):
 
 def save_report_data(report_data):
     """Save complete report data to database with all new fields including images - FIXED"""
+    conn = None
+    cursor = None
     try:
         conn = get_db_connection()
         if not conn:
@@ -2946,7 +2955,7 @@ def save_report_data(report_data):
             return False
             
         cursor = conn.cursor()
-        conn.start_transaction()
+        
         # Save patient with hospital association
         cursor.execute("""
             INSERT IGNORE INTO patients (patient_id, hospital_id, first_name, last_name, age, gender)
@@ -2986,6 +2995,12 @@ def save_report_data(report_data):
             report_data['created_by'], report_data['is_published']
         ))
         
+        if 'images' in report_data and report_data['images']:
+            dexa_system = WeasyPrintPDFGenerator()
+            success = dexa_system._save_report_images(report_data['report_id'], report_data['images'])
+            if not success:
+                st.warning("⚠️ Some images failed to save to database")
+        
         # Save AP-Spine measurements
         for measurement in report_data.get('ap_spine_measurements', []):
             cursor.execute("""
@@ -3005,7 +3020,8 @@ def save_report_data(report_data):
                 report_data['report_id'], measurement['side'], measurement['region'],
                 measurement['bmd'], measurement['t_score'], measurement['z_score']
             ))
-        conn.commit()
+        
+       
         # Save initial version
         version_saved = save_report_version(
             report_data['report_id'], 
@@ -3017,27 +3033,18 @@ def save_report_data(report_data):
         if not version_saved:
             st.warning("⚠️ Could not save report version, but report was saved")
         
-        
+        st.success(f"✅ Report data saved successfully! Report ID: {report_data['report_id']}")
+        conn.commit()
         cursor.close()
         conn.close()
-        
-        st.success(f"✅ Report data saved successfully! Report ID: {report_data['report_id']}")
         return True
         
-    except mysql.connector.Error as e:
-        st.error(f"❌ MySQL Error: {e}")
-        if conn:
-            conn.rollback()
-            cursor.close()
-            conn.close()
-        return False
     except Exception as e:
-        st.error(f"❌ General Error saving report: {e}")
         if conn:
             conn.rollback()
-            cursor.close()
-            conn.close()
+        st.error(f"❌ General Error saving report: {str(e)}")
         return False
+
 def prepare_report_data(db_report):
     """Prepare report data for PDF generation with all fields"""
     if isinstance(db_report, dict):
@@ -3574,6 +3581,7 @@ def create_new_report(dexa_system):
                         
                         # Image data
                         'images': image_data,
+                        
                         
                         # Measurement data
                         'ap_spine_measurements': ap_spine_measurements,
