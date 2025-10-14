@@ -2955,7 +2955,7 @@ def save_report_data(report_data):
             return False
             
         cursor = conn.cursor()
-        
+        conn.start_transaction()
         # Save patient with hospital association
         cursor.execute("""
             INSERT IGNORE INTO patients (patient_id, hospital_id, first_name, last_name, age, gender)
@@ -3021,7 +3021,8 @@ def save_report_data(report_data):
                 measurement['bmd'], measurement['t_score'], measurement['z_score']
             ))
         
-       
+        conn.commit()
+        
         # Save initial version
         version_saved = save_report_version(
             report_data['report_id'], 
@@ -3030,10 +3031,6 @@ def save_report_data(report_data):
             "Initial version"
         )
         
-        if not version_saved:
-            st.warning("⚠️ Could not save report version, but report was saved")
-        
-        st.success(f"✅ Report data saved successfully! Report ID: {report_data['report_id']}")
         conn.commit()
         cursor.close()
         conn.close()
