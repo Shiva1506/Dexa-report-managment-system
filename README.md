@@ -5,12 +5,12 @@ A comprehensive web application for managing DEXA (Dual-Energy X-ray Absorptiome
 📋 Overview
 This Streamlit-based application provides healthcare facilities with a complete solution for:
 
-DEXA Report Creation & Management - Comprehensive body composition analysis
-Professional PDF Generation - Pixel-perfect reports using WeasyPrint
-Cloud Storage Integration - Secure file storage with Supabase
-Multi-User Access Control - Role-based permissions (Admin/User)
-Version Control - Complete audit trail for report edits
-Hospital Management - Multi-tenant architecture
+        DEXA Report Creation & Management - Comprehensive body composition analysis
+        Professional PDF Generation - Pixel-perfect reports using WeasyPrint
+        Cloud Storage Integration - Secure file storage with Supabase
+        Multi-User Access Control - Role-based permissions (Admin/User)
+        Version Control - Complete audit trail for report edits
+        Hospital Management - Multi-tenant architecture
 
 ✨ Key Features
 
@@ -68,7 +68,9 @@ Hospital Management - Multi-tenant architecture
     Required Python packages
 
 Environment Configuration:
+
         Create a .streamlit/secrets.toml file:
+        
                   # Database Configuration
                   MYSQL_HOST = "your-mysql-host"
                   MYSQL_USER = "your-username"
@@ -82,6 +84,7 @@ Environment Configuration:
                   SUPABASE_SERVICE_ROLE_KEY = "your-service-role-key"
 
 Installation Steps:
+
     ->Clone the Repository:
         git clone <[repository-ur](https://github.com/Shiva1506/Dexa-report-managment-system)>
         cd dexa-report-system
@@ -190,6 +193,7 @@ Installation Steps:
           Maintain version history
 
 🛠️ API Endpoints
+
       Authentication:
           POST /login - User authentication
           POST /register/hospital - Hospital registration
@@ -207,6 +211,7 @@ Installation Steps:
           DELETE /storage/files/{id} - Remove files
 
 🔒 Security Features
+
     Data Isolation: Hospital-specific data segregation
     Password Hashing: SHA-256 encryption
     Input Validation: Comprehensive field validation
@@ -214,23 +219,27 @@ Installation Steps:
     Session Management: Secure session handling
 
 📱 Mobile Compatibility
+
     Responsive Design: Works on tablets and large phones
     Touch-Friendly: Optimized for touch interfaces
     Offline Capabilities: PDF download for offline viewing
 
 🚨 Error Handling
+
     Graceful Degradation: System remains functional during partial failures
     User-Friendly Messages: Clear error explanations
     Automatic Retries: Database connection recovery
     Validation Feedback: Real-time form validation
 
 📊 Monitoring & Analytics
+
     Storage Metrics: Cloud storage usage tracking
     User Activity: Report access patterns
     System Health: Database performance monitoring
     PDF Generation: Success/failure rate tracking
 
 🔄 Update Procedures
+
     Database Migrations:
         Automatic schema updates
         Backward compatibility maintenance
@@ -242,6 +251,7 @@ Installation Steps:
         Version compatibility checking
 
 🤝 Support & Maintenance
+
     Technical Support:
         System administrator documentation
         Troubleshooting guides
@@ -255,6 +265,7 @@ Installation Steps:
 
 
 🎯 Getting Started
+
 Initial Setup: Configure environment variables and database
 Hospital Registration: Create your hospital organization
 User Creation: Add healthcare team members
