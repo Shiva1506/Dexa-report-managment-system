@@ -257,6 +257,7 @@ Production Deployment: Deploy to your healthcare facility
 Built for healthcare professionals  🏥💻
 
 🏥 Hospital DEXA Report Management System - Project Structure
+
         dexa-report-system/
         ├── 📁 .streamlit/
         │   └── secrets.toml              # Environment variables
@@ -272,6 +273,7 @@ Built for healthcare professionals  🏥💻
 
 🗃️ Database Schema Structure
       Core Tables:
+      
         -- Hospitals table
         hospitals
         ├── hospital_id (PK)
@@ -387,6 +389,7 @@ Built for healthcare professionals  🏥💻
         
 🏗️ Application Architecture
         Core Modules Structure:
+        
         app.py
         ├── 📦 WeasyPrintPDFGenerator Class
         │   ├── __init__()
@@ -445,6 +448,7 @@ Built for healthcare professionals  🏥💻
             └── show_user_reports_page()
             
 📊 Data Flow Architecture
+
         1. Authentication Flow
         User Access → Login Validation → Role Detection → Interface Routing
              ↓              ↓                ↓               ↓
@@ -496,6 +500,7 @@ Built for healthcare professionals  🏥💻
             get_user_reports(): Role-based data filtering
 
 🔄 Workflow Patterns
+
 Admin Workflow
       Login → Dashboard → User Management → Report Creation → PDF Generation → Storage Management
         ↓         ↓            ↓               ↓                 ↓               ↓
@@ -512,6 +517,7 @@ Admin Workflow
       [Report List] → [Form] → [Audit Trail] → [History] → [WeasyPrint] → [Supabase
       
 📁 File Structure Details
+
       Static Assets:
           static/images/
           ├── vital_insights_logo.png     # Brand logo for PDF headers
@@ -541,7 +547,7 @@ Configuration Files:
 
 🔐 Security Architecture
 Access Control Matrix
-text
+
 Role        | Reports | Users | PDF Gen | Storage | Settings
 ------------|---------|-------|---------|---------|----------
 Admin       | CRUD+   | CRUD+ | Full    | Full    | Full
