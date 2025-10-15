@@ -13,6 +13,7 @@ Version Control - Complete audit trail for report edits
 Hospital Management - Multi-tenant architecture
 
 ✨ Key Features
+
     🔐 Authentication & Security
     Multi-tier User System: Admin and Regular User roles
     Hospital Registration: Complete hospital onboarding
@@ -45,6 +46,7 @@ Hospital Management - Multi-tenant architecture
     Reason Documentation: Mandatory change explanations
 
 🏗️ System Architecture
+
     Database Schema
     MySQL Database: Relational data structure
     Multi-tenant Design: Hospital isolation
@@ -92,6 +94,7 @@ Installation Steps:
 
         
 👥 User Roles & Permissions
+
       🎯 Administrator
               Full system access
               User management
@@ -106,6 +109,7 @@ Installation Steps:
               No editing capabilities
 
 📊 Report Structure
+
       Core Metrics:
           Body Composition: Total mass, fat mass, lean mass, bone mass
           Health Indicators: Body fat percentage, visceral fat area
@@ -124,6 +128,7 @@ Installation Steps:
           Personalized Recommendations: Nutrition and training guidance
 
 🖼️ Image Management
+
     Supported Image Types:
         AP-Spine Scans: Anterior-Posterior spine images
         Femur Scans: Right and left femur analysis
@@ -156,6 +161,7 @@ Installation Steps:
           Storage analytics
 
 📈 Usage Workflow
+
       1. Hospital Registration
           Register hospital details
           Create admin account
@@ -449,6 +455,7 @@ Built for healthcare professionals  🏥💻
             
 📊 Data Flow Architecture
 
+
         1. Authentication Flow
         User Access → Login Validation → Role Detection → Interface Routing
              ↓              ↓                ↓               ↓
@@ -470,6 +477,7 @@ Built for healthcare professionals  🏥💻
         [Edit Form] → [Change Check] → [JSON Snapshot] → [Version Table]
         
 🎯 Component Responsibilities
+
         WeasyPrintPDFGenerator Class
           Purpose: Handle all PDF generation operations
           Key Methods:
@@ -500,8 +508,8 @@ Built for healthcare professionals  🏥💻
             get_user_reports(): Role-based data filtering
 
 🔄 Workflow Patterns
+    Admin Workflow:
 
-Admin Workflow
       Login → Dashboard → User Management → Report Creation → PDF Generation → Storage Management
         ↓         ↓            ↓               ↓                 ↓               ↓
       [Auth] → [Metrics] → [User CRUD] → [Data Entry] → [PDF Export] → [FileOps]
