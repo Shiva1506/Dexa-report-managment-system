@@ -266,12 +266,12 @@ Installation Steps:
 
 🎯 Getting Started
 
-Initial Setup: Configure environment variables and database
-Hospital Registration: Create your hospital organization
-User Creation: Add healthcare team members
-Report Testing: Create sample reports to verify functionality
-Production Deployment: Deploy to your healthcare facility
-Built for healthcare professionals  🏥💻
+        Initial Setup: Configure environment variables and database
+        Hospital Registration: Create your hospital organization
+        User Creation: Add healthcare team members
+        Report Testing: Create sample reports to verify functionality
+        Production Deployment: Deploy to your healthcare facility
+        Built for healthcare professionals  🏥💻
 
 🏥 Hospital DEXA Report Management System - Project Structure
 
@@ -558,6 +558,7 @@ Built for healthcare professionals  🏥💻
               └── Footer                 # Legal and contact information
               
 Configuration Files:
+
     .streamlit/
     ├── config.toml               # Streamlit appearance settings
     └── secrets.toml              # Sensitive environment variables
@@ -573,12 +574,14 @@ Admin       | CRUD+   | CRUD+ | Full    | Full    | Full
 User        | R       | -     | Export  | View    | -
 
 Data Protection Layers:
+
     Application Layer: Role-based access control
     Database Layer: Hospital data isolation
     Storage Layer: Secure file permissions
     Network Layer: Encrypted communications
 
 📈 Scalability Considerations
+
     Horizontal Scaling
     Stateless application design
     Database connection pooling
