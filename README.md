@@ -283,10 +283,10 @@ Installation Steps:
         |         images.png
         ├── 📁 templates/
         │   └── report.html              # PDF template
-        ├── app.py                       # Main application file
+        ├── dexa.py                       # Main application file
         ├── requirements.txt
         ├── README.md
-        └── .gitignore
+        
 
 🗃️ Database Schema Structure
       Core Tables:
